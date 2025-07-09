@@ -1,6 +1,6 @@
 # test
 
 Амо
-![My Image](Images/1.jpg)
+![My Image](images/1.jpg)
 Битрикс
-![My Image](Images/2.jpg)
+![My Image](images/2.jpg)
