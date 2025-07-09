@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма</title>
+<link rel="stylesheet" type="text/css" media="screen" href="style.css">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=j6SwEzJWTM-2SgK-JHfNyMK3RfNpdd1UBNMSaN2d7zhB29euMVD_CX5_AYTYswvNKbh3bVcx-5sILX2GM03rF9a_NDl0juyqiH9zU8mad6A" charset="UTF-8"></script></head>
+<body>
+<header>
+</header>
+<main>
+<div class="main-content">
+<form class="obratnuj-zvonok" autocomplete="off" action='action.php' method='post'>
+	<div class="form-zvonok"> 
+		<div>
+			<label>Имя <span>*</span></label>
+			<input type='text' name='name' required></div>
+		<div>
+			<label>Номер телефона<span>*</span></label>
+			<input type="text" data-format="+* (***) ***-**-**" data-mask="+* (***) ***-**-**"  class="art-stranger" name='phone' required></div>
+		<div>
+			<label>Комментарий</label>
+			<input type='text' name='comment'>
+		</div>
+		<input class="bot-send-mail" type='submit' value='Отправить'>
+	</div>
+</form>
+</div>
+</main>
+<script>
+    function doFormat(value, pattern, mask)
+        {
+            const strippedValue = value.replace(/[^0-9]/g, "");
+
+            const chars = strippedValue.split('');
+
+            let count = 0;
+            let formatted = '';
+
+            for (let i = 0; i < pattern.length; i++)
+            {
+                const char = pattern[i];
+                if (chars[count])
+                {
+                    if (/\*/.test(char)) {
+                        formatted += chars[count];
+                        count++;
+                    } else {
+                        formatted += char;
+                    }
+                }
+                else if (mask)
+                {
+                    const splittedMask = mask.split('');
+
+                    if (splittedMask[i])
+                    {
+                        formatted += splittedMask[i];
+                    }
+                }
+            }
+            return formatted;
+        }
+        document.querySelectorAll('[data-mask]').forEach(function (e) {
+            function format(elem) {
+                const val = doFormat(elem.value, elem.getAttribute('data-format'));
+                elem.value = doFormat(elem.value, elem.getAttribute('data-format'), elem.getAttribute('data-mask'));
+
+                if (elem.createTextRange) {
+                    var range = elem.createTextRange();
+                    range.move('character', val.length);
+                    range.select();
+                } else if (elem.selectionStart) {
+                    elem.focus();
+                    elem.setSelectionRange(val.length, val.length);
+                }
+            }
+
+            e.addEventListener('keyup', function () {
+                format(e);
+            });
+
+            e.addEventListener('keydown', function () {
+                format(e);
+            });
+
+            format(e)
+        });
+</script>
+</body>
+</html>
